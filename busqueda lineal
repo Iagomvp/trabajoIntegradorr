@@ -1,0 +1,33 @@
+import time
+
+def busqueda_lineal(lista, objetivo):
+    for i in range(len(lista)):
+        if lista[i] == objetivo:
+            return i
+    return -1
+
+productos= ["auriculares", "teclado", "monitor", "mouse", "camara", "impresora", "parlantes", "celular", "auriculares inalambricos", "fundas", "teclado mecanico"]
+
+while True:
+    print("1-Buscar producto: ")
+    print("2-Salir")
+    opcion = input("Seleccione una opcion: ")
+
+    if opcion == "1":
+        objetivo = input("Ingrese el producto a buscar: ")
+        inicio = time.time()
+        indice = busqueda_lineal(productos, objetivo)
+        fin = time.time()
+
+        if indice != 1:
+             print(f"'{objetivo}' encontrado en la posicion {indice}.")
+        else:
+            print(f"'{objetivo}' no esta en la lista")
+        print(f"Tiempo de ejecución: {fin - inicio:.6f} segundos")
+
+    elif opcion == "2":
+        print("Saliendo del programa.")
+        break
+
+    else:
+        print("Opción invalida. Intente nuevamente.")
