@@ -1,0 +1,77 @@
+import time
+
+def bubble_sort(lista):
+    n = len(lista)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if lista[j].lower() > lista[j + 1].lower():
+                lista[j], lista[j + 1] = lista[j + 1], lista[j]
+    return lista
+
+def quick_sort(lista):
+    if len(lista) <= 1:
+        return lista
+    else:
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x.lower() <= pivote.lower()]
+        mayores = [x for x in lista[1:] if x.lower() > pivote.lower()]
+        return quick_sort(menores) + [pivote] + quick_sort(mayores)
+
+def busqueda_binaria(lista, objetivo):
+    izquierda = 0
+    derecha = len(lista) - 1
+    objetivo = objetivo.lower()
+
+    while izquierda <= derecha:
+        medio = (izquierda + derecha) // 2
+        if lista[medio].lower() == objetivo:
+            return medio
+        elif lista[medio].lower() < objetivo:
+            izquierda = medio + 1
+        else:
+            derecha = medio - 1
+    return -1
+productos = [
+    "teclado", "auriculares", "monitor", "mouse", "camara", "notebook", "parlantes",
+    "impresora", "router", "webcam", "micrófono", "tablet", "celular", "proyector", "cables", "teclado mecanico", "auriculares inalambricos"]
+
+while True:
+    print("1. Ordenar con Bubble Sort")
+    print("2. Ordenar con Quick Sort")
+    print("3. Salir")
+    opcion = input("Seleccione una opción: ")
+
+    if opcion in ["1", "2"]:
+        lista_original = productos.copy()
+        print("\nLista original:", lista_original)
+
+        if opcion == "1":
+            print("\nUsando Bubble Sort: ")
+            inicio_ordenamiento = time.time()
+            lista_ordenada = bubble_sort(lista_original)
+            fin_ordenamiento = time.time()
+        else:
+            print("\nUsando Quick Sort: ")
+            inicio_ordenamiento = time.time()
+            lista_ordenada = quick_sort(lista_original)
+            fin_ordenamiento = time.time()
+
+        print("Lista ordenada:", lista_ordenada)
+        print(f"Tiempo de ordenamiento: {fin_ordenamiento - inicio_ordenamiento:.6f} segundos")
+
+        objetivo = input("\nIngrese el producto a buscar: ")
+        inicio_busqueda = time.time()
+        indice = busqueda_binaria(lista_ordenada, objetivo)
+        fin_busqueda = time.time()
+
+        if indice != -1:
+            print(f"'{lista_ordenada[indice]}' encontrado en la posición {indice + 1} (lista ordenada).")
+        else:
+            print(f"'{objetivo}' no se encuentra en la lista.")
+        print(f"Tiempo de búsqueda: {fin_busqueda - inicio_busqueda:.6f} segundos")
+
+    elif opcion == "3":
+        print("Saliendo del programa.")
+        break
+    else:
+        print("Opcion invalida. Intente nuevamente.")
