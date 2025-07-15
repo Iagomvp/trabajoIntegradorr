@@ -1,0 +1,47 @@
+import time
+
+def busqueda_binaria(lista, objetivo):
+    izquierda = 0
+    derecha = len(lista) - 1
+
+    while izquierda <= derecha:
+        medio = (izquierda + derecha) // 2
+        if lista[medio] == objetivo:
+            return medio
+        elif lista[medio] < objetivo:
+            izquierda = medio + 1
+        else:
+            derecha = medio - 1
+    return -1
+
+productos ="auriculares", "teclado", "monitor", "mouse", "camara", "impresora", "parlantes", "fundas", "teclado mecanico"
+
+while True:
+    print("1-Buscar producto")
+    print("2-Ver lista ordenada")
+    print("3-Salir")
+    opcion = input("Seleccione una opcion: ")
+
+    if opcion == "1":
+        productos_ordenados = sorted(productos, key=str.lower)
+        objetivo = input("Ingrese el producto a buscar: ")
+        inicio = time.time()
+        indice = busqueda_binaria(productos_ordenados, objetivo.lower())
+        fin = time.time()
+
+        if indice != -1:
+            print(f"'{objetivo}' encontrado en la posición {indice+1} (lista ordenada).")
+        else:
+            print(f"'{objetivo}' no se encuentra en la lista.")
+        print(f"Tiempo de ejecución: {fin - inicio:.6f} segundos")
+
+    elif opcion == "2":
+        print("Lista ordenada:", sorted(productos))
+
+    elif opcion == "3":
+        print("Saliendo del programa.")
+        break
+
+    else:
+        print("Opcion invalida. Intente nuevamente.")
+        
